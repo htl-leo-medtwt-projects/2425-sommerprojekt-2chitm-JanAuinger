@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'NewYork';
+    src: url(../fonts/NewYork.otf);
+}
+
+#startscreen{
+    background: rgb(144,144,144);
+    background: radial-gradient(circle, rgba(144,144,144,1) 0%, rgba(138,93,93,1) 49%, rgba(119,48,48,1) 100%);
+}
+
+.login{
+    background-color: black;
+    color: white;
+    height: 80vh;
+    width: 80vw;
+    border-radius: 2%;
+    position: fixed;
+    top: 10vh;
+    left: 10vw;
+    text-align: center;
+    font-family: 'NewYork';
+
+}

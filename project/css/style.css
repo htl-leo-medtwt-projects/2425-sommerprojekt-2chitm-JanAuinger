@@ -3,21 +3,103 @@
     src: url(../fonts/NewYork.otf);
 }
 
-#startscreen{
-    background: rgb(144,144,144);
-    background: radial-gradient(circle, rgba(144,144,144,1) 0%, rgba(138,93,93,1) 49%, rgba(119,48,48,1) 100%);
+@font-face {
+    font-family: 'Coolvetica';
+    src: url(../fonts/Coolvetica\ Rg.otf);
 }
 
-.login{
+#startscreen{
     background-color: black;
-    color: white;
+}
+
+#login_video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
+
+.login{
+    background-color: rgb(198, 198, 198);
+    opacity: 0.8;
+    color: black;
     height: 80vh;
-    width: 80vw;
+    width: 30vw;
     border-radius: 2%;
     position: fixed;
     top: 10vh;
-    left: 10vw;
+    left: 60vw;
     text-align: center;
-    font-family: 'NewYork';
-
+    font-family: 'Coolvetica';
 }
+
+.login h1{
+    color: rgba(144, 48, 48, 1);
+    font-family: 'NewYork';
+}
+
+/* From Uiverse.io by AmIt-DasIT */ 
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    position: relative;
+    color: black;
+    align-items: center;
+  }
+
+  #name{
+    top: 3vh;
+  }
+
+  #password{
+    top: 8vh;
+  }
+  
+  .container .label {
+    font-size: 15px;
+    padding-left: 10px;
+    position: absolute;
+    top: 13px;
+    transition: 0.3s;
+    pointer-events: none;
+  }
+  
+  .input {
+    width: 200px;
+    height: 45px;
+    border: none;
+    outline: none;
+    padding: 0px 7px;
+    border-radius: 6px;
+    color: black;
+    font-size: 15px;
+    background-color: transparent;
+    box-shadow: 3px 3px 10px rgba(0,0,0,1),
+    -1px -1px 6px rgba(255, 255, 255, 0.4);
+  }
+  
+  .input:focus {
+    border: 2px solid transparent;
+    color: black;
+    box-shadow: 3px 3px 10px rgba(0,0,0,1),
+    -1px -1px 6px rgba(255, 255, 255, 0.4),
+    inset 3px 3px 10px rgba(0,0,0,1),
+    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+  }
+  
+  .container .input:valid ~ .label,
+  .container .input:focus ~ .label {
+    transition: 0.3s;
+    padding-left: 2px;
+    transform: translateY(-35px);
+  }
+  
+  .container .input:valid,
+  .container .input:focus {
+    box-shadow: 3px 3px 10px rgba(0,0,0,1),
+    -1px -1px 6px rgba(255, 255, 255, 0.4),
+    inset 3px 3px 10px rgba(0,0,0,1),
+    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+  }

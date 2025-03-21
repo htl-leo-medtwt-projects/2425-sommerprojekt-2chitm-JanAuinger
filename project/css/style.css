@@ -1,3 +1,8 @@
+:root{
+  --background-color: #1a1a1a;
+}
+
+
 @font-face {
     font-family: 'NewYork';
     src: url(../fonts/NewYork.otf);
@@ -6,6 +11,11 @@
 @font-face {
     font-family: 'Coolvetica';
     src: url(../fonts/Coolvetica\ Rg.otf);
+}
+
+@font-face {
+  font-family: 'LemonMilk';
+  src: url(../fonts/LEMONMILK-Regular.otf);
 }
 
 /*Start-Screen (Login and Sign In)*/
@@ -154,37 +164,63 @@
 /*Discover*/
 
 #discover{
-  background-color: #1a1a1a;
+  background-color: var(--background-color);
 }
 
 #discover h1{
-  position: relative;
   color: rgba(144, 48, 48, 1);
   font-family: 'NewYork';
   text-align: center;
-  top: 5vh;
+  font-size: 5rem;
 }
 
-nav{
-  display: block;
-  background-color: #666666;
-  opacity: 0.6;
+#discover h3{
+  color: white;
+  text-align: center;
+  font-family: 'LemonMilk';
+}
+
+/*Nav - Bar*/
+
+.navbar {
   position: sticky;
-  top: 0%;
-}
-
-.discover_button{
-  
-}
-
-.actors_button{
-
-}
-
-.shows_button{
+  top: 0;
+  width: 95vw;
+  background: linear-gradient(90deg, #333, #555);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 
 }
 
-.games_button{
+.nav-button {
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+    font-family: 'Coolvetica';
+}
 
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.user-icon img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.user-icon img:hover {
+  transform: scale(1.1);
 }

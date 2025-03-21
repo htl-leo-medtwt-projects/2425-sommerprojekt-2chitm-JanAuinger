@@ -1,5 +1,6 @@
 :root{
   --background-color: #1a1a1a;
+  --dark-red: rgba(144, 48, 48, 1);
 }
 
 
@@ -172,13 +173,82 @@
   font-family: 'NewYork';
   text-align: center;
   font-size: 5rem;
+  position: relative;
+  top: -3vh;
 }
 
 #discover h3{
   color: white;
   text-align: center;
   font-family: 'LemonMilk';
+  position: relative;
+  top: -8vh;
 }
+
+.discover-news h2{
+  color: white;
+  font-family: 'LemonMilk';
+  position: absolute;
+  top: 40vh;
+  left: 3vw;
+}
+
+.discover-game{
+  text-align: center;
+  position: absolute;
+  top: 80vh;
+  left: 35vw;
+  font-family: 'Coolvetica';
+  color: white;
+}
+
+.discover-game h2{
+  font-family: 'LemonMilk';
+}
+
+.discover-news{
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.discover-news div{
+  position: absolute;
+  top: 50vh;
+}
+
+.news1{
+  background-color: var(--dark-red);
+  width: 20vw;
+  height: 25vh;
+  left: 3vw;
+}
+
+.news2{
+  background-color: var(--dark-red);
+  width: 20vw;
+  height: 25vh;
+
+  left: 26vw;
+}
+
+.news3{
+  background-color: var(--dark-red);
+  width: 20vw;
+  height: 25vh;
+
+  left: 49vw;
+}
+
+.news4{
+  background-color: var(--dark-red);
+  width: 20vw;
+  height: 25vh;
+
+  left: 72vw;
+}
+
+
 
 /*Nav - Bar*/
 

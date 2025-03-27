@@ -248,6 +248,28 @@
   left: 72vw;
 }
 
+.most-wanted-actors{
+  display: flex;
+  justify-content: space-around;
+  font-family: 'Coolvetica';
+  color: white;
+}
+
+.most-wanted-actors div{
+  position: absolute;
+  top: 120vh;
+}
+
+.most-wanted-actors h2{
+  position: absolute;
+  top: 109vh;
+  left: 3vw;
+}
+
+.most-wanted-actors h3{
+  position: absolute;
+  top: 100vh;
+}
 
 
 /*Nav - Bar*/

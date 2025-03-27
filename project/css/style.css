@@ -266,18 +266,43 @@
   left: 3vw;
 }
 
-.most-wanted-actors h3{
+.most-wanted-actors p{
   position: absolute;
-  top: 100vh;
+  top: 110vh;
 }
 
 
+.most-wanted-actors button{
+  position: absolute;
+  top: 110vh;
+  right: 7vw;
+}
+
+.discover_button {
+  background-color: var(--dark-red);
+  color: white;
+  border: 2px solid red;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.discover_button:hover {
+  background-color: white;
+  color: #ff0000;
+  box-shadow: 0 0 10px #ff0000;
+}
 /*Nav - Bar*/
 
 .navbar {
   position: sticky;
   top: 0;
-  width: 95vw;
+  width: 93.5vw;
   background: linear-gradient(90deg, #333, #555);
   display: flex;
   justify-content: space-between;

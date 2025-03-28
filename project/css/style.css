@@ -133,7 +133,7 @@
   font-weight: bold;
   position: fixed;
   top: 52vh;
-  right: 20vw;
+  right: 21vw;
 }
 
 .boton-elegante::after {
@@ -169,7 +169,7 @@
 }
 
 #discover h1{
-  color: rgba(144, 48, 48, 1);
+  color: var(--dark-red);
   font-family: 'NewYork';
   text-align: center;
   font-size: 5rem;
@@ -209,11 +209,17 @@
 .discover-news{
   display: flex;
   justify-content: space-around;
+  font-family: 'LemonMilk';
 }
 
 .discover-news div{
   position: absolute;
   top: 50vh;
+}
+
+.discover-news div:hover{
+  transform: scale(1.05);
+  transition: 1s;
 }
 
 .news1{
@@ -259,6 +265,11 @@
   top: 120vh;
 }
 
+.most-wanted-actors div:hover{
+  transform: scale(1.05);
+  transition: 1s;
+}
+
 .most-wanted-actors h2{
   position: absolute;
   top: 109vh;
@@ -275,6 +286,42 @@
   position: absolute;
   top: 110vh;
   right: 7vw;
+}
+
+.actors1{
+  background-image: url(../media/samuelljackson.png);
+  width: 20rem;
+  height: 20rem;
+  left: 3vw;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.actors2{
+  background-image: url(../media/robertdeniro.jpg);
+  width: 20rem;
+  height: 20rem;
+  text-align: center;
+  font-size: 3rem;
+  left: 26vw;
+}
+
+.actors3{
+  background-image: url(../media/alpacino.jpg);
+  width: 20rem;
+  height: 20rem;
+  text-align: center;
+  font-size: 3rem;
+  left: 49vw;
+}
+
+.actors4{
+  background-image: url(../media/mikestarr.webp);
+  width: 20rem;
+  height: 20rem;
+  text-align: center;
+  font-size: 3rem;
+  left: 72vw;
 }
 
 .discover_button {
@@ -339,4 +386,31 @@
 
 .user-icon img:hover {
   transform: scale(1.1);
+}
+
+/*SHOWS*/
+
+#shows{
+  background-color: var(--background-color);
+}
+
+#shows h1{
+  color: var(--dark-red);
+  font-family: 'NewYork';
+  text-align: center;
+  font-size: 5rem;
+  position: relative;
+  top: -3vh;
+}
+
+/*ACTORS*/
+
+#actors{
+  background-color: var(--background-color);
+}
+
+/*GAMES*/
+
+#games{
+  background-color: var(--background-color);
 }

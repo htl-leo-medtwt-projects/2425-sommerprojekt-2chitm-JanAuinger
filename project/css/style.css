@@ -1,6 +1,9 @@
 :root{
   --background-color: #1a1a1a;
   --dark-red: rgba(144, 48, 48, 1);
+  --headfont: 'NewYork';
+  --lemon: 'LemonMilk';
+  --cool: 'Coolvetica';
 }
 
 
@@ -23,144 +26,127 @@
 
 #startscreen{
     background-color: black;
+      font-family: var(--cool);
 }
 
-#login_video {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%; 
-    min-height: 100%;
-  }
-
-.login{
-    background-color: rgb(198, 198, 198);
-    opacity: 0.8;
-    color: black;
-    height: 80vh;
-    width: 30vw;
-    border-radius: 2%;
-    position: fixed;
-    top: 10vh;
-    left: 60vw;
-    text-align: center;
-    font-family: 'Coolvetica';
-}
-
-.login h1{
-    color: rgba(144, 48, 48, 1);
-    font-family: 'NewYork';
-}
-
-/* From Uiverse.io by AmIt-DasIT */ 
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    position: relative;
-    color: black;
-    align-items: center;
-  }
-
-  #name{
-    top: 3vh;
-  }
-
-  #password{
-    top: 8vh;
-  }
-  
-  .container .label {
-    font-size: 15px;
-    padding-left: 10px;
-    position: absolute;
-    top: 13px;
-    transition: 0.3s;
-    pointer-events: none;
-  }
-  
-  .input {
-    width: 200px;
-    height: 45px;
-    border: none;
-    outline: none;
-    padding: 0px 7px;
-    border-radius: 6px;
-    color: black;
-    font-size: 15px;
-    background-color: transparent;
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4);
-  }
-  
-  .input:focus {
-    border: 2px solid transparent;
-    color: black;
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0,0,0,1),
-    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
-  }
-  
-  .container .input:valid ~ .label,
-  .container .input:focus ~ .label {
-    transition: 0.3s;
-    padding-left: 2px;
-    transform: translateY(-35px);
-  }
-  
-  .container .input:valid,
-  .container .input:focus {
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0,0,0,1),
-    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
-  }
-
-  /* From Uiverse.io by iZOXVL */ 
-.boton-elegante {
-  padding: 15px 30px;
-  border: 2px solid #2c2c2c;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border-radius: 30px;
-  transition: all 0.4s ease;
-  outline: none;
-  position: relative;
-  overflow: hidden;
-  font-weight: bold;
-  position: fixed;
-  top: 52vh;
-  right: 21vw;
-}
-
-.boton-elegante::after {
-  content: "";
+.login_field{
+  width: 20vw;
+  transform: scale(1.5);
   position: absolute;
-  top: 0;
-  left: 0;
+  left: 10vw;
+  top: 25vh;
+}
+
+/* From Uiverse.io by Praashoo7 */ 
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-bottom: 0.4em;
+  background-color: #171717;
+  border-radius: 25px;
+  transition: .4s ease-in-out;
+}
+
+.form:hover {
+  transform: scale(1.05);
+  border: 1px solid black;
+}
+
+#heading {
+  text-align: center;
+  margin: 2em;
+  color: var(--dark-red);
+  font-size: 1.2em;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border-radius: 25px;
+  padding: 0.6em;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #171717;
+  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+
+.input-icon {
+  height: 1.3em;
+  width: 1.3em;
+  fill: white;
+}
+
+.input-field {
+  background: none;
+  border: none;
+  outline: none;
   width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.25) 0%,
-    rgba(255, 255, 255, 0) 70%
-  );
-  transform: scale(0);
-  transition: transform 0.5s ease;
+  color: #d3d3d3;
 }
 
-.boton-elegante:hover::after {
-  transform: scale(4);
+.form .btn {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 2.5em;
 }
 
-.boton-elegante:hover {
-  border-color: #666666;
-  background: #292929;
+.button1 {
+  padding: 0.5em;
+  padding-left: 1.1em;
+  padding-right: 1.1em;
+  border-radius: 5px;
+  margin-right: 0.5em;
+  border: none;
+  outline: none;
+  transition: .4s ease-in-out;
+  background-color: #252525;
+  color: white;
 }
 
+.button1:hover {
+  background-color: black;
+  color: white;
+}
+
+.button2 {
+  padding: 0.5em;
+  padding-left: 2.3em;
+  padding-right: 2.3em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  transition: .4s ease-in-out;
+  background-color: #252525;
+  color: white;
+}
+
+.button2:hover {
+  background-color: black;
+  color: white;
+}
+
+.button3 {
+  margin-bottom: 3em;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  transition: .4s ease-in-out;
+  background-color: #252525;
+  color: white;
+}
+
+.button3:hover {
+  background-color: red;
+  color: white;
+}
 
 /*Discover*/
 
@@ -170,7 +156,7 @@
 
 #discover h1{
   color: var(--dark-red);
-  font-family: 'NewYork';
+  font-family: var(--headfont);
   text-align: center;
   font-size: 5rem;
   position: relative;
@@ -180,14 +166,14 @@
 #discover h3{
   color: white;
   text-align: center;
-  font-family: 'LemonMilk';
+  font-family: var(--lemon);
   position: relative;
   top: -8vh;
 }
 
 .discover-news h2{
   color: white;
-  font-family: 'LemonMilk';
+  font-family: var(--lemon);
   position: absolute;
   top: 40vh;
   left: 3vw;
@@ -198,18 +184,18 @@
   position: absolute;
   top: 80vh;
   left: 35vw;
-  font-family: 'Coolvetica';
+  font-family: var(--cool);
   color: white;
 }
 
 .discover-game h2{
-  font-family: 'LemonMilk';
+  font-family: var(--lemon);
 }
 
 .discover-news{
   display: flex;
   justify-content: space-around;
-  font-family: 'LemonMilk';
+  font-family: var(--lemon);
 }
 
 .discover-news div{
@@ -293,7 +279,7 @@
 .most-wanted-actors{
   display: flex;
   justify-content: space-around;
-  font-family: 'Coolvetica';
+  font-family: var(--cool);
   color: white;
 }
 
@@ -438,7 +424,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 8px;
-    font-family: 'Coolvetica';
+    font-family: var(--cool);
 }
 
 .nav-button:hover {
@@ -465,13 +451,23 @@
 
 #shows h1{
   color: var(--dark-red);
-  font-family: 'NewYork';
+  font-family: var(--headfont);
   text-align: center;
   font-size: 5rem;
   position: relative;
   top: -3vh;
 }
 
+.recommendations{
+  position: absolute;
+  top: 27vh;
+  left: 3vw;
+}
+
+.recommendations h3{
+  color: white;
+  font-family: var(--lemon);
+}
 /*ACTORS*/
 
 #actors{

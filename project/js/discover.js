@@ -76,6 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>You can find some of the best actors on the actors page.</p>
             <button class="discover_button">Actors page</button>
         </div>
+
+        
     `;
 
     document.querySelector(".actors1").style.backgroundImage = `url('../media/actors/${selectedActors[0].image}')`;

@@ -593,6 +593,162 @@
   background-color: var(--background-color);
 }
 
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  overflow: hidden;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  height: 400px;
+}
+
+.carousel {
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.actor {
+  position: absolute;
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  text-align: center;
+  color: white;
+  font-family: var(--lemon);
+}
+
+.actor img {
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.actor.active {
+  transform: scale(1.2) translateX(0);
+  opacity: 1;
+  z-index: 2;
+}
+
+.actor.left {
+  transform: scale(0.8) translateX(-150%);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.actor.right {
+  transform: scale(0.8) translateX(150%);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.actor h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.actor p {
+  font-size: 0.9rem;
+}
+
+#actors h1{
+  color: var(--dark-red);
+  font-family: var(--headfont);
+  text-align: center;
+}
+
+#actors h3{
+  color: white;
+  font-family: var(--cool);
+  text-align: center;
+  font-weight: lighter;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.left-button {
+  left: 1rem;
+}
+
+.right-button {
+  right: 1rem;
+}
+.all-actors-button {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background-color: var(--dark-red);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-family: var(--lemon);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.all-actors-button:hover {
+  background-color: var(--light-red);
+}
+
+.actors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem;
+}
+
+.actor-card {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-family: var(--lemon);
+}
+
+.actor-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.actor-card h3 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.actor-card p {
+  font-size: 0.9rem;
+}
+
 /*GAMES*/
 
 #games{

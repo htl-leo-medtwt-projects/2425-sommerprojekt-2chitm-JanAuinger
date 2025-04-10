@@ -6,7 +6,14 @@ const actors = [
     { name: "Robert De Niro", image: "../media/actors/deniro.png", bio: "6-Fach nominiert für den Oscar und 2x Gewinner." },
     { name: "Michael C. Hall", image: "../media/actors/chall.png", bio: "Bekannt aus Dexter und Golden Globe Award Gewinner." },
     { name: "Damson Idris", image: "../media/actors/idris.png", bio: "Bekannt als Franklin Saint in Snowfall." },
-    { name: "Alfredo James Pacino", image: "../media/actors/alpacino.png", bio: "Bekannt durch Der Pate und Oscar Gewinner" }
+    { name: "Alfredo James Pacino", image: "../media/actors/alpacino.png", bio: "Bekannt durch Der Pate und Oscar Gewinner" },
+    { name: "Benicio Del Toro", image: "../media/actors/deltoro.png", bio: "Aus Puerto-Rica und bekannt der Traffic" },
+    { name: "Johnny Depp", image: "../media/actors/depp.png", bio: "Bekannt durch Fluch der Karibik" },
+    { name: "Idris Elba", image: "../media/actors/elba.png", bio: "Weltweit bekannt durch Luther und The Wire" },
+    { name: "Giancarlo Esposito", image: "../media/actors/eposito.png", bio: "Wichtige Figur in Braking Bad und Better Call Saul" },
+    { name: "Moura Wagner", image: "../media/actors/wagner.png", bio: "Spielt Pablo Escobar in Narcos" },
+    { name: "Pedro Pascal", image: "../media/actors/pascal.png", bio: "Bekannt durch TheWalkingDead und Narcos" },
+    { name: "Joe Pesci", image: "../media/actors/pesci.png", bio: "Weltweit bekannt durch GoodFellas" }
 ];
 
     body.innerHTML = `

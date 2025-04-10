@@ -476,6 +476,26 @@
   margin-top: 2rem;
   overflow: hidden;
   width: 90vw;
+  overflow: hidden;
+}
+
+.slider {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dark-red) transparent; 
+}
+
+.slider::-webkit-scrollbar {
+  width: 8px; 
+  height: 8px;
+}
+
+.slider::-webkit-scrollbar-thumb {
+  background-color: var(--dark-red); 
+  border-radius: 10px; 
+}
+
+.slider::-webkit-scrollbar-track {
+  background: transparent; 
 }
 
 .slider {

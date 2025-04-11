@@ -811,9 +811,10 @@
 
 .actors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
   gap: 1.5rem;
-  margin: 2rem;
+  margin: 2rem auto;
+  width: 90%; 
 }
 
 .actor-card {
@@ -825,6 +826,11 @@
   color: white;
   font-family: var(--lemon);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.actor-card {
+  max-width: 15.5rem;
+  justify-self: center; 
 }
 
 .actor-card img {
@@ -844,7 +850,7 @@
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 300px;
+  width: 15rem;
   outline: none;
   position: relative;
   left: 73.5vw;

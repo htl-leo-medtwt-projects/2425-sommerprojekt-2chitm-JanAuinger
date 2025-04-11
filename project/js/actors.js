@@ -1,3 +1,5 @@
+/*Karusell von einem Youtube Tutorial nachgemacht und selbst angepasst*/
+
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("actors");
 

@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         {
             name: "Giancarlo Esposito",
-            image: "../media/actors/esposito.png",
+            image: "../media/actors/eposito.png",
             bio: "Wichtige Figur in Breaking Bad und Better Call Saul.",
             age: 67,
             birthdate: "1958-04-26",
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const rightButton = document.querySelector(".right-button");
     let currentIndex = 0;
 
-    // Actor Karusell nach jedem Wechseln updaten
+    // Actor Karussell nach jedem Wechseln updaten
     function updateCarousel() {
         const actorElements = document.querySelectorAll(".actor");
         actorElements.forEach((actor, index) => {
@@ -335,6 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
             actorsGrid.appendChild(actorCard);
         });
+        applyGsapAnimations();
     }
 
     const searchBar = document.getElementById("search-bar");
@@ -343,4 +344,28 @@ document.addEventListener("DOMContentLoaded", function () {
         const filteredActors = actors.filter(actor => actor.name.toLowerCase().includes(searchTerm));
         displayActors(filteredActors);
     });
+
+    // GSAP 
+    function applyGsapAnimations() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray(".actor-card").forEach((card, index) => {
+            gsap.fromTo(
+                card,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 90%",
+                        toggleActions: "play none none reverse",
+                    },
+                }
+            );
+        });
+    }
 });

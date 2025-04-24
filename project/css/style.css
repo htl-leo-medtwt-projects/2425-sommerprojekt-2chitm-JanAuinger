@@ -108,6 +108,7 @@
   transition: .4s ease-in-out;
   background-color: #252525;
   color: white;
+  box-shadow: black;
 }
 
 .button1:hover {

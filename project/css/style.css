@@ -870,7 +870,7 @@
 .games-landing {
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 84vh;
   gap: 1rem;
   padding: 1rem;
   background-color: var(--background-color);
@@ -909,4 +909,100 @@
   margin-top: 1rem;
   font-size: 1.2rem;
   font-family: var(--cool);
+}
+
+/*Memory Spiel*/
+
+.memory-game {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.memory-card {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.memory-card .card-front,
+.memory-card .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--cool);
+  font-size: 1.2rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease;
+}
+
+.memory-card .card-front {
+  background-color: var(--dark-red);
+  transform: rotateY(0deg);
+}
+
+.memory-card .card-back {
+  background-color: white;
+  color: var(--dark-red);
+  transform: rotateY(180deg);
+}
+
+.memory-card.flipped .card-front {
+  transform: rotateY(180deg);
+}
+
+.memory-card.flipped .card-back {
+  transform: rotateY(0deg);
+}
+
+.memory-card.matched {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.game-info {
+  text-align: center;
+  font-family: var(--cool);
+  color: white;
+  margin-top: 1rem;
+}
+
+.back-button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  background-color: var(--dark-red);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: white;
+  color: var(--dark-red);
+}
+
+.hidden {
+  display: none;
+}
+
+#game-area {
+  display: none;
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  box-sizing: border-box;
 }

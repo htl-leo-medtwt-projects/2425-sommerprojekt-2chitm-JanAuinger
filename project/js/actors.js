@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         { name: "Idris Elba", image: "../media/actors/elba.png", bio: "Weltweit bekannt durch Luther und The Wire" },
         { name: "Giancarlo Esposito", image: "../media/actors/eposito.png", bio: "Wichtige Figur in Braking Bad und Better Call Saul" },
         { name: "Moura Wagner", image: "../media/actors/wagner.png", bio: "Spielt Pablo Escobar in Narcos" },
-        { name: "Pedro Pascal", image: "../media/actors/pascal.png", bio: "Bekannt durch TheWalkingDead und Narcos" },
+        { name: "Pedro Pascal", image: "../media/actors/pascal.png", bio: "Bekannt durch TheLastOfUs und Narcos" },
         { name: "Joe Pesci", image: "../media/actors/pesci.png", bio: "Weltweit bekannt durch GoodFellas" }
     ];
 
@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const rightButton = document.querySelector(".right-button");
     let currentIndex = 0;
 
+    // Actor Karusell nach jedem Wechseln updaten
     function updateCarousel() {
         const actorElements = document.querySelectorAll(".actor");
         actorElements.forEach((actor, index) => {

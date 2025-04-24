@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const gameArea = document.getElementById("game-area");
 
-    // Daten für Serien und Hauptcharaktere
     const memoryData = [
         { series: "Breaking Bad", character: "Walter White" },
         { series: "Snowfall", character: "Franklin Saint" },
@@ -11,13 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
         { series: "Lucifer", character: "Lucifer Morningstar" }
     ];
 
-    // Doppelte Karten für das Memory-Spiel erstellen
+    // Doppelte Karten erstellen
     const cards = memoryData.flatMap(item => [
         { type: "series", text: item.series },
         { type: "character", text: item.character }
     ]);
 
-    // Karten mischen
     shuffle(cards);
 
     gameArea.innerHTML = `
@@ -43,10 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let timer = 0;
     let timerInterval;
 
-    // Timer starten
     startTimer();
 
-    // Karten-Event-Listener hinzufügen
     memoryCards.forEach(card => {
         card.addEventListener("click", function () {
             if (flippedCards.length < 2 && !card.classList.contains("matched") && !card.classList.contains("flipped")) {
@@ -60,14 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Funktion: Überprüfen, ob die Karten zusammenpassen
     function checkMatch() {
         attempts++;
         document.getElementById("attempts").textContent = attempts;
     
         const [card1, card2] = flippedCards;
     
-        // Überprüfen, ob die Karten ein gültiges Paar bilden
+        // Überprüfen ob die Karten passen
         const isMatch = memoryData.some(item =>
             (card1.dataset.type === "series" && card2.dataset.type === "character" && card1.dataset.text === item.series && card2.dataset.text === item.character) ||
             (card1.dataset.type === "character" && card2.dataset.type === "series" && card1.dataset.text === item.character && card2.dataset.text === item.series)
@@ -94,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         flippedCards = [];
     }
 
-    // Funktion: Karten mischen
+    // Karten mischen
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -102,7 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Funktion: Timer starten
     function startTimer() {
         timerInterval = setInterval(() => {
             timer++;
@@ -110,8 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1000);
     }
 
-    // Zurück zur Spieleauswahl
     document.getElementById("back-to-selection").addEventListener("click", function () {
-        window.location.reload(); // Seite neu laden
+        window.location.reload(); 
     });
 });

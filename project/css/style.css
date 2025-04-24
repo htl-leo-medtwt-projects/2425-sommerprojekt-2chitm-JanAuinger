@@ -648,6 +648,8 @@
   text-align: center;
   color: white;
   font-family: var(--lemon);
+  height: 45vh;
+  width: 30vw;
 }
 
 .actor img {
@@ -788,6 +790,22 @@
 
 .fade-in {
   animation: fadeIn 0.5s forwards;
+}
+
+.actor {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.actor.left {
+  transform: translateX(-100%);
+  opacity: 0.5;
+}
+.actor.right {
+  transform: translateX(100%);
+  opacity: 0.5;
+}
+.actor.active {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 @keyframes fadeOut {

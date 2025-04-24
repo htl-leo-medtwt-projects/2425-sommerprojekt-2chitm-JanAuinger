@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("games");
 
-    // HTML für die Navigation und Spieleauswahl
     body.innerHTML = `
         <div class="navbar">
             <button class="nav-button">DISCOVER</button>
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         </div>
 
-        <!-- Spieleauswahl -->
         <div id="games-landing" class="games-landing">
             <div class="game-option" data-game="quiz">
                 <h2>Quiz-Spiele</h2>
@@ -29,14 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         </div>
 
-        <!-- Spielbereich -->
         <div id="game-area" class="hidden"></div>
     `;
 
     const gamesLanding = document.getElementById("games-landing");
     const gameArea = document.getElementById("game-area");
 
-    // Event-Listener für die Spieleauswahl
     document.querySelectorAll(".game-option").forEach(option => {
         option.addEventListener("click", function () {
             const gameType = option.getAttribute("data-game");
@@ -44,15 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Dynamisches Laden der Spiele
     function startGame(gameType) {
-        // Spieleauswahl ausblenden
         gamesLanding.style.display = "none";
 
-        // Spielbereich sichtbar machen
         gameArea.style.display = "block";
 
-        // Spiel laden
         switch (gameType) {
             case "quiz":
                 loadQuizGame();
@@ -69,10 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Seite neu laden, um zur Auswahl zurückzukehren
     window.reloadPage = function () {
-        gamesLanding.style.display = "flex"; // Wieder anzeigen
-        gameArea.style.display = "none";    // Ausblenden
-        gameArea.innerHTML = "";            // Inhalt leeren
+        gamesLanding.style.display = "flex"; 
+        gameArea.style.display = "none";    
+        gameArea.innerHTML = "";            
     };
 });

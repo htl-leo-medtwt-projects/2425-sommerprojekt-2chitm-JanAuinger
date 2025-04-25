@@ -616,6 +616,65 @@
   font-size: 1.2rem;
   line-height: 1.5;
 }
+
+.random-facts,
+.random-suggestion {
+    text-align: center;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+
+.random-facts h3,
+.random-suggestion h3 {
+    font-size: 1.8rem;
+    color: var(--dark-red);
+    margin-bottom: 1rem;
+}
+
+.random-facts p,
+.random-suggestion #suggestion-title {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.random-facts button,
+.random-suggestion button {
+    background-color: var(--dark-red);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.random-facts button:hover,
+.random-suggestion button:hover {
+    background-color: white;
+    color: var(--dark-red);
+}
+
+.random-suggestion #suggestion-result {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.random-suggestion #suggestion-result img {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
 /*ACTORS*/
 
 #actors{

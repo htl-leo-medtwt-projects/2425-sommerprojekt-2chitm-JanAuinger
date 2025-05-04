@@ -356,12 +356,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
+                    duration: 0.5,
                     delay: index * 0.1,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: card,
-                        start: "top 90%",
+                        start: "top 95%",
                         toggleActions: "play none none reverse",
                     },
                 }

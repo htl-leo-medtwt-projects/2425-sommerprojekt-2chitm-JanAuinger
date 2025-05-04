@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <button class="nav-button">SHOWS</button>
             <button class="nav-button">ACTORS</button>
             <button class="nav-button">GAMES</button>
-            <div class="user-icon">
+            <div class="user-icon" onclick="navigateTo('../pages/profile.html')">
                 <img src="../media/UserIcon.png" alt="User Icon">
             </div>
         </div>

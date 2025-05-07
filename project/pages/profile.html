@@ -9,5 +9,27 @@
     <script src="../js/script.js" defer></script>
 </head>
 <body id="profile">
+    <h1>Willkommen, <span id="usernameDisplay"></span>!</h1>
+    <button id="logoutBtn">Logout</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const usernameDisplay = document.getElementById("usernameDisplay");
+            const currentUser = localStorage.getItem("currentUser");
+
+            if (!currentUser) {
+                alert("Du bist nicht eingeloggt.");
+                window.location.href = "../pages/startscreen.html"; 
+                return;
+            }
+
+            usernameDisplay.textContent = currentUser;
+
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                localStorage.removeItem("currentUser"); 
+                window.location.href = "../pages/startscreen.html"; 
+            });
+        });
+    </script>
 </body>
 </html>

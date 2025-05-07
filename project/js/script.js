@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     const discoverButtons = document.querySelectorAll(".discover_button");
-    
     discoverButtons.forEach(button => {
         button.addEventListener("click", function () {
             if (this.textContent.includes("Games")) {
@@ -27,6 +26,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    const userIcon = document.querySelector(".user-icon img");
+    if (userIcon) {
+        userIcon.addEventListener("click", function () {
+            // Überprüfen, ob ein Benutzer eingeloggt ist
+            const currentUser = localStorage.getItem("currentUser");
+            if (!currentUser) {
+                alert("Bitte logge dich ein, um dein Profil anzusehen.");
+                window.location.href = "startscreen.html"; // Weiterleitung zur Login-Seite
+            } else {
+                window.location.href = "profile.html"; // Weiterleitung zur Profilseite
+            }
+        });
+    }
 
     function navigateTo(url) {
         window.location.href = url;

@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("games");
 
-    // Render Navbar and Game Options
     body.innerHTML = `
         <div class="navbar">
             <button class="nav-button nav-discover">DISCOVER</button>
@@ -34,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const gamesLanding = document.getElementById("games-landing");
     const gameArea = document.getElementById("game-area");
 
-    // Add Event Listeners to Game Options
     document.querySelectorAll(".game-option").forEach(option => {
         option.addEventListener("click", function () {
             const gameType = option.getAttribute("data-game");
@@ -74,60 +72,81 @@ document.addEventListener("DOMContentLoaded", function () {
                 {
                     question: "Welche Serie handelt von einem Chemielehrer, der zum Drogenbaron wird?",
                     options: ["Breaking Bad", "The Sopranos", "Dexter", "Narcos"],
-                    correct: "Breaking Bad",
-                    difficulty: "einfach"
+                    correct: "Breaking Bad"
                 },
                 {
                     question: "In welcher Stadt spielt die Serie 'The Wire'?",
                     options: ["New York", "Los Angeles", "Baltimore", "Chicago"],
-                    correct: "Baltimore",
-                    difficulty: "mittel"
+                    correct: "Baltimore"
                 },
                 {
                     question: "Welche Serie basiert teilweise auf den Verbrechen von Pablo Escobar?",
                     options: ["Fargo", "Mindhunter", "Narcos", "Ozark"],
-                    correct: "Narcos",
-                    difficulty: "mittel"
+                    correct: "Narcos"
+                },
+                {
+                    question: "Wer ist der Hauptcharakter in der Serie 'Dexter'?",
+                    options: ["Dexter Morgan", "Walter White", "Tony Soprano", "Tommy Shelby"],
+                    correct: "Dexter Morgan"
+                },
+                {
+                    question: "Welche Serie zeigt Ermittlungen der Polizei in verschiedenen Städten?",
+                    options: ["True Detective", "The Wire", "NCIS", "CSI"],
+                    correct: "True Detective"
                 }
             ],
             schauspieler: [
                 {
                     question: "Wer spielt die Hauptrolle in der Serie 'Luther'?",
                     options: ["Idris Elba", "Bryan Cranston", "Tom Hardy", "Matthew McConaughey"],
-                    correct: "Idris Elba",
-                    difficulty: "mittel"
+                    correct: "Idris Elba"
                 },
                 {
                     question: "Welche Schauspielerin gewann einen Emmy für ihre Rolle in 'Ozark'?",
                     options: ["Julia Garner", "Laura Linney", "Anna Gunn", "Rhea Seehorn"],
-                    correct: "Julia Garner",
-                    difficulty: "mittel"
+                    correct: "Julia Garner"
                 },
                 {
-                    question: "In welcher Serie spielt Bryan Cranston die Hauptrolle?",
-                    options: ["Breaking Bad", "Fargo", "The Wire", "True Detective"],
-                    correct: "Breaking Bad",
-                    difficulty: "einfach"
+                    question: "Welcher Schauspieler spielt Walter White in 'Breaking Bad'?",
+                    options: ["Bryan Cranston", "Aaron Paul", "Bob Odenkirk", "Giancarlo Esposito"],
+                    correct: "Bryan Cranston"
+                },
+                {
+                    question: "Wer spielt den Charakter Tommy Shelby in 'Peaky Blinders'?",
+                    options: ["Cillian Murphy", "Tom Hardy", "Sam Neill", "Paul Anderson"],
+                    correct: "Cillian Murphy"
+                },
+                {
+                    question: "Welche Schauspielerin spielt Eleven in 'Stranger Things'?",
+                    options: ["Millie Bobby Brown", "Sadie Sink", "Natalia Dyer", "Winona Ryder"],
+                    correct: "Millie Bobby Brown"
                 }
             ],
             trueCrime: [
                 {
                     question: "Welche Serie basiert auf den realen Ermittlungen des FBI zu Serienmördern?",
                     options: ["Mindhunter", "Dexter", "The Wire", "Fargo"],
-                    correct: "Mindhunter",
-                    difficulty: "mittel"
+                    correct: "Mindhunter"
                 },
                 {
                     question: "Welche Serie verwendet echte Verbrechen als Inspiration?",
                     options: ["Fargo", "Narcos", "Better Call Saul", "The Sopranos"],
-                    correct: "Fargo",
-                    difficulty: "schwer"
+                    correct: "Fargo"
                 },
                 {
                     question: "In welcher Serie wird die Geschichte von Ted Kaczynski, dem 'Unabomber', erzählt?",
                     options: ["Manhunt: Unabomber", "True Detective", "Mindhunter", "Breaking Bad"],
-                    correct: "Manhunt: Unabomber",
-                    difficulty: "schwer"
+                    correct: "Manhunt: Unabomber"
+                },
+                {
+                    question: "Welche Serie erzählt die Geschichte von Jeffrey Dahmer?",
+                    options: ["Dahmer – Monster", "Mindhunter", "Criminal Minds", "The Alienist"],
+                    correct: "Dahmer – Monster"
+                },
+                {
+                    question: "Welche Serie zeigt die Verfolgung des Mörders 'Golden State Killer'?",
+                    options: ["I'll Be Gone in the Dark", "The Jinx", "Unsolved Mysteries", "Making a Murderer"],
+                    correct: "I'll Be Gone in the Dark"
                 }
             ]
         };
@@ -169,12 +188,12 @@ document.addEventListener("DOMContentLoaded", function () {
         window.handleAnswer = function (selectedOption) {
             const questionData = quizData[selectedCategory][currentQuestionIndex];
             const isCorrect = selectedOption === questionData.correct;
-            const points = calculateCrimePoints(isCorrect, questionData.difficulty);
-            totalPoints += points;
 
             document.getElementById("quiz-feedback").innerHTML = `
-                <p class="quiz-feedback-message">${isCorrect ? "Richtig!" : "Falsch!"} ${isCorrect ? "+" : ""}${points} Punkte</p>
+                <p class="quiz-feedback-message">${isCorrect ? "Richtig! 🎉" : "Falsch! 😢"}</p>
             `;
+
+            if (isCorrect) totalPoints += 10;
 
             currentQuestionIndex++;
             if (currentQuestionIndex < quizData[selectedCategory].length) {
@@ -183,16 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 showQuizSummary();
             }
         };
-
-        function calculateCrimePoints(isCorrect, difficulty) {
-            const pointsSystem = {
-                einfach: { gain: 10, loss: -5 },
-                mittel: { gain: 20, loss: -10 },
-                schwer: { gain: 30, loss: -15 }
-            };
-
-            return isCorrect ? pointsSystem[difficulty].gain : pointsSystem[difficulty].loss;
-        }
 
         function showQuizSummary() {
             document.getElementById("quiz-container").innerHTML = `

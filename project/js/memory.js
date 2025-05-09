@@ -59,24 +59,26 @@ document.addEventListener("DOMContentLoaded", function () {
     function checkMatch() {
         attempts++;
         document.getElementById("attempts").textContent = attempts;
-    
+
         const [card1, card2] = flippedCards;
-    
+
         // Überprüfen ob die Karten passen
         const isMatch = memoryData.some(item =>
             (card1.dataset.type === "series" && card2.dataset.type === "character" && card1.dataset.text === item.series && card2.dataset.text === item.character) ||
             (card1.dataset.type === "character" && card2.dataset.type === "series" && card1.dataset.text === item.character && card2.dataset.text === item.series)
         );
-    
+
         if (isMatch) {
             card1.classList.add("matched");
             card2.classList.add("matched");
             matchedPairs++;
-    
+
             if (matchedPairs === memoryData.length) {
                 clearInterval(timerInterval);
                 setTimeout(() => {
                     alert(`Herzlichen Glückwunsch! Du hast das Spiel in ${timer} Sekunden und ${attempts} Versuchen abgeschlossen.`);
+                    stopTimer();
+                    updateLocalStorage(); 
                 }, 500);
             }
         } else {
@@ -85,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 card2.classList.remove("flipped");
             }, 1000);
         }
-    
+
         flippedCards = [];
     }
 
@@ -104,7 +106,28 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1000);
     }
 
+    function stopTimer() {
+        clearInterval(timerInterval);
+    }
+
+    function updateLocalStorage() {
+        let userStats = JSON.parse(localStorage.getItem("userStats"));
+
+        if (!userStats) {
+            userStats = {
+                quizzes: 0,
+                memoryWins: 0,
+                points: 0,
+            };
+        }
+
+        userStats.memoryWins++;
+        userStats.points += 50; 
+
+        localStorage.setItem("userStats", JSON.stringify(userStats));
+    }
+
     document.getElementById("back-to-selection").addEventListener("click", function () {
-        window.location.reload(); 
+        window.location.reload();
     });
 });

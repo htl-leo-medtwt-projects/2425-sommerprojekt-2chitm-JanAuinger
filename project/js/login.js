@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (userData.password === password) {
             localStorage.setItem("currentUser", username);
-            alert("Login erfolgreich!");
             window.location.href = "../pages/profile.html"; 
         } else {
             alert("Falsches Passwort.");
@@ -44,6 +43,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         localStorage.setItem(username, JSON.stringify({ username, password }));
-        alert("Registrierung erfolgreich!");
     });
 });

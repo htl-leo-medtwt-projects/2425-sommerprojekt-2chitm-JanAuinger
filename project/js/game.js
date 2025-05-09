@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("games");
 
+    // Render Navbar and Game Options
     body.innerHTML = `
         <div class="navbar">
             <button class="nav-button nav-discover">DISCOVER</button>
@@ -21,10 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h2 class="game-option-title">Memory-Spiel</h2>
                 <p class="game-option-description">Finde die passenden Paare mit Serien und Hauptcharakteren!</p>
             </div>
-            <div class="game-option game-option-whoami" data-game="whoami">
-                <h2 class="game-option-title">Wer-bin-ich-Spiel</h2>
-                <p class="game-option-description">Errate den Schauspieler oder Charakter anhand der Hinweise!</p>
-            </div>
         </div>
 
         <div id="game-area" class="game-area hidden"></div>
@@ -33,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const gamesLanding = document.getElementById("games-landing");
     const gameArea = document.getElementById("game-area");
 
+    // Add Event Listeners to Game Options
     document.querySelectorAll(".game-option").forEach(option => {
         option.addEventListener("click", function () {
             const gameType = option.getAttribute("data-game");
@@ -49,10 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 loadQuizGame();
                 break;
             case "memory":
-                loadMemoryGame();
-                break;
-            case "whoami":
-                loadWhoAmIGame();
                 break;
             default:
                 gameArea.innerHTML = "<p class='error-message'>Das Spiel konnte nicht geladen werden.</p>";
@@ -178,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("quiz-container").innerHTML = `
                 <h3 class="quiz-question">${questionData.question}</h3>
                 <div class="quiz-options">
-                    ${questionData.options.map((option, index) => `
+                    ${questionData.options.map((option) => `
                         <button class="quiz-option-button" onclick="handleAnswer('${option}')">${option}</button>
                     `).join("")}
                 </div>
@@ -211,13 +205,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="quiz-restart-button" onclick="reloadPage()">Zurück zur Kategorieauswahl</button>
             `;
         }
-    }
-
-    function loadMemoryGame() {
-        gameArea.innerHTML = "<p class='game-placeholder'>Memory-Spiel wird hier geladen...</p>";
-    }
-
-    function loadWhoAmIGame() {
-        gameArea.innerHTML = "<p class='game-placeholder'>Wer-bin-ich-Spiel wird hier geladen...</p>";
     }
 });

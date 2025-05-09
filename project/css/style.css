@@ -1240,11 +1240,16 @@
 }
 
 /* Profile */ 
+#profile{
+  background-color: var(--background-color);
+}
+
 .profile-content {
-  width: 90%;
+  width: 50%;
   max-width: 800px;
   margin: 20px;
   text-align: center;
+  margin-left: 25%;
 }
 
 .profile-header {

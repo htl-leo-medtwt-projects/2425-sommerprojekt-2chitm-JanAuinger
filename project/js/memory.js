@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
         { series: "Lucifer", character: "Lucifer Morningstar" }
     ];
 
-    // Doppelte Karten erstellen
     const cards = memoryData.flatMap(item => [
         { type: "series", text: item.series },
         { type: "character", text: item.character }

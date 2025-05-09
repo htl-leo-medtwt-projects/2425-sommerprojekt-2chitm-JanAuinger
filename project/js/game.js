@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("games");
 
-    // Render Navbar and Game Options
     body.innerHTML = `
         <div class="navbar">
             <button class="nav-button nav-discover">DISCOVER</button>
@@ -30,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const gamesLanding = document.getElementById("games-landing");
     const gameArea = document.getElementById("game-area");
 
-    // Add Event Listeners to Game Options
     document.querySelectorAll(".game-option").forEach(option => {
         option.addEventListener("click", function () {
             const gameType = option.getAttribute("data-game");
@@ -198,12 +196,27 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         function showQuizSummary() {
+            updateLocalStorage(totalPoints);
             document.getElementById("quiz-container").innerHTML = `
                 <h2 class="quiz-summary-title">Quiz abgeschlossen!</h2>
                 <p class="quiz-summary-category">Kategorie: ${selectedCategory}</p>
                 <p class="quiz-summary-points">Gesamte Punkte: ${totalPoints}</p>
                 <button class="quiz-restart-button" onclick="reloadPage()">Zurück zur Kategorieauswahl</button>
             `;
+
         }
+    }
+
+    function updateLocalStorage(points) {
+        let userStats = JSON.parse(localStorage.getItem("userStats")) || {
+            quizzes: 0,
+            memoryWins: 0,
+            points: 0
+        };
+
+        userStats.quizzes++;
+        userStats.points += points;
+
+        localStorage.setItem("userStats", JSON.stringify(userStats));
     }
 });

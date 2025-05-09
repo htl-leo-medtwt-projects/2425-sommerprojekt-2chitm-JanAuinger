@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const memoryCount = document.getElementById("memory-count");
     const pointsCount = document.getElementById("points-count");
 
-    // Check if user is logged in
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
         alert("Du bist nicht eingeloggt.");
@@ -58,10 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     usernameDisplay.textContent = currentUser;
 
-    // Load or initialize user stats in localStorage
     let userStats = JSON.parse(localStorage.getItem("userStats"));
     if (!userStats) {
-        // Initialize default stats if not found
         userStats = {
             quizzes: 0,
             memoryWins: 0,
@@ -70,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("userStats", JSON.stringify(userStats));
     }
 
-    // Update stats in the profile
     function updateProfileStats() {
         quizCount.textContent = userStats.quizzes;
         memoryCount.textContent = userStats.memoryWins;
@@ -78,40 +74,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     updateProfileStats();
 
-    // Functions to update stats
-    function completeQuiz() {
-        userStats.quizzes++;
-        userStats.points += 10; // Each quiz gives 10 points
-        saveStats();
-    }
-
-    function completeMemory() {
-        userStats.memoryWins++;
-        userStats.points += 50; // Each memory game gives 50 points
-        saveStats();
-    }
-
-    // Save updated stats to localStorage
     function saveStats() {
         localStorage.setItem("userStats", JSON.stringify(userStats));
         updateProfileStats();
     }
 
-    // Logout button functionality
     document.getElementById("logoutBtn").addEventListener("click", () => {
         localStorage.removeItem("currentUser");
-        localStorage.removeItem("userStats"); // Optional: Clear stats on logout
+        localStorage.removeItem("userStats");
         window.location.href = "../pages/startscreen.html";
     });
-
-    // Debug buttons for testing (optional, remove in production)
-    const debugArea = document.createElement("div");
-    debugArea.innerHTML = `
-        <button id="debugCompleteQuiz" class="debug-button">Quiz abschließen</button>
-        <button id="debugCompleteMemory" class="debug-button">Memory abschließen</button>
-    `;
-    body.appendChild(debugArea);
-
-    document.getElementById("debugCompleteQuiz").addEventListener("click", completeQuiz);
-    document.getElementById("debugCompleteMemory").addEventListener("click", completeMemory);
 });

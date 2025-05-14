@@ -181,9 +181,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const questionData = quizData[selectedCategory][currentQuestionIndex];
             const isCorrect = selectedOption === questionData.correct;
 
-            document.getElementById("quiz-feedback").innerHTML = `
-                <p class="quiz-feedback-message">${isCorrect ? "Richtig! 🎉" : "Falsch! 😢"}</p>
+            if(isCorrect){
+                document.getElementById("quiz-feedback").innerHTML = `
+                <p class="quiz-feedback-message" style="color: green;">Richtig! 🎉</p>
             `;
+            }else{
+                document.getElementById("quiz-feedback").innerHTML = `
+                <p class="quiz-feedback-message">Falsch! 😢</p>
+            `;}
 
             if (isCorrect) totalPoints += 10;
 

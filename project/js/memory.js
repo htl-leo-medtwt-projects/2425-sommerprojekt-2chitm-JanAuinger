@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const [card1, card2] = flippedCards;
 
-        // Überprüfen ob die Karten passen
         const isMatch = memoryData.some(item =>
             (card1.dataset.type === "series" && card2.dataset.type === "character" && card1.dataset.text === item.series && card2.dataset.text === item.character) ||
             (card1.dataset.type === "character" && card2.dataset.type === "series" && card1.dataset.text === item.character && card2.dataset.text === item.series)
@@ -75,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (matchedPairs === memoryData.length) {
                 clearInterval(timerInterval);
                 setTimeout(() => {
-                    alert(`Herzlichen Glückwunsch! Du hast das Spiel in ${timer} Sekunden und ${attempts} Versuchen abgeschlossen.`);
                     stopTimer();
                     updateLocalStorage(); 
                 }, 500);
@@ -90,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
         flippedCards = [];
     }
 
-    // Karten mischen
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

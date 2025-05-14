@@ -7,14 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = document.getElementById("password").value;
 
         if (!username || !password) {
-            alert("Bitte fülle alle Felder aus.");
             return;
         }
 
         const storedUser = localStorage.getItem(username);
 
         if (!storedUser) {
-            alert("Benutzer nicht gefunden. Bitte registriere dich zuerst.");
             return;
         }
 
@@ -33,12 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = document.getElementById("password").value;
 
         if (!username || !password) {
-            alert("Bitte fülle alle Felder aus.");
             return;
         }
 
         if (localStorage.getItem(username)) {
-            alert("Benutzername existiert bereits.");
             return;
         }
 

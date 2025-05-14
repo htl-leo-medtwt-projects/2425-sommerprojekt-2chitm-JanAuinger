@@ -1086,7 +1086,7 @@
 }
 
 .quiz-category-selection {
-  margin-top: 80px; /* Platz für die Navbar */
+  margin-top: -2rem;
   text-align: center;
   padding: 20px;
   animation: fadeIn 1s ease-in-out;
@@ -1122,9 +1122,8 @@
 
 /* Quiz-Fragen */
 .quiz-container {
-  margin-top: 20px;
   text-align: center;
-  padding: 20px;
+  padding: 2rem;
   border: 2px solid var(--dark-red);
   border-radius: 10px;
   background-color: #222222;

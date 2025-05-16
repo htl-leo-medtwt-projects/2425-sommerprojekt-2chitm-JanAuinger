@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         gameArea.innerHTML = "";            
     };
 
-    // Quiz Game Logic
     function loadQuizGame() {
         const quizData = {
             serien: [
@@ -201,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         function showQuizSummary() {
-            updateLocalStorage(totalPoints);
+            updateUserStatsQuiz(totalPoints);
             document.getElementById("quiz-container").innerHTML = `
                 <h2 class="quiz-summary-title">Quiz abgeschlossen!</h2>
                 <p class="quiz-summary-category">Kategorie: ${selectedCategory}</p>
@@ -212,16 +211,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function updateLocalStorage(points) {
-        let userStats = JSON.parse(localStorage.getItem("userStats")) || {
-            quizzes: 0,
-            memoryWins: 0,
-            points: 0
-        };
-
-        userStats.quizzes++;
-        userStats.points += points;
-
-        localStorage.setItem("userStats", JSON.stringify(userStats));
+    function updateUserStatsQuiz(points) {
+        const currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) return;
+        let userData = JSON.parse(localStorage.getItem(currentUser));
+        if (!userData) {
+            userData = {
+                username: currentUser,
+                stats: { quizzes: 0, memoryWins: 0, points: 0 },
+                ownedAvatars: ["default"],
+                currentAvatar: "default"
+            };
+        }
+        if (!userData.stats) userData.stats = { quizzes: 0, memoryWins: 0, points: 0 };
+        userData.stats.quizzes++;
+        userData.stats.points += points;
+        localStorage.setItem(currentUser, JSON.stringify(userData));
     }
 });

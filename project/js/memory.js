@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 clearInterval(timerInterval);
                 setTimeout(() => {
                     stopTimer();
-                    updateLocalStorage(); 
+                    updateUserStatsMemory(); 
                 }, 500);
             }
         } else {
@@ -106,21 +106,22 @@ document.addEventListener("DOMContentLoaded", function () {
         clearInterval(timerInterval);
     }
 
-    function updateLocalStorage() {
-        let userStats = JSON.parse(localStorage.getItem("userStats"));
-
-        if (!userStats) {
-            userStats = {
-                quizzes: 0,
-                memoryWins: 0,
-                points: 0,
+    function updateUserStatsMemory() {
+        const currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) return;
+        let userData = JSON.parse(localStorage.getItem(currentUser));
+        if (!userData) {
+            userData = {
+                username: currentUser,
+                stats: { quizzes: 0, memoryWins: 0, points: 0 },
+                ownedAvatars: ["default"],
+                currentAvatar: "default"
             };
         }
-
-        userStats.memoryWins++;
-        userStats.points += 50; 
-
-        localStorage.setItem("userStats", JSON.stringify(userStats));
+        if (!userData.stats) userData.stats = { quizzes: 0, memoryWins: 0, points: 0 };
+        userData.stats.memoryWins++;
+        userData.stats.points += 50; 
+        localStorage.setItem(currentUser, JSON.stringify(userData));
     }
 
     document.getElementById("back-to-selection").addEventListener("click", function () {

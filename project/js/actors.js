@@ -1,5 +1,3 @@
-/*Karusell von einem Youtube Tutorial nachgemacht und selbst angepasst*/
-
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("actors");
 
@@ -244,11 +242,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div id="carousel-section">
             <h1>ACTORS</h1>
-            
             <div class="carousel-container">
                 <button class="carousel-button left-button">&#10094;</button>
-                <div class="carousel">
-                </div>
+                <div class="carousel"></div>
                 <button class="carousel-button right-button">&#10095;</button>
             </div>
             <h3>Auf einen Schauspieler klicken, um mehr Details zu sehen oder in der Übersicht alle sehen</h3>
@@ -260,15 +256,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h1>Alle Schauspieler</h1>
                 <input type="text" id="search-bar" class="search-bar" placeholder="Schauspieler suchen...">
             </div>
-            <div class="actors-grid">
+            <div class="actors-grid"></div>
+        </div>
+        
+        <div id="actor-modal" class="actor-modal hidden">
+            <div class="actor-modal-content">
+                <button id="modal-close" class="modal-close">&times;</button>
+                <img id="modal-image" src="" alt="">
+                <h2 id="modal-name"></h2>
+                <div class="modal-meta">
+                    <span id="modal-birthdate"></span>
+                    <span id="modal-age"></span>
+                </div>
+                <div class="modal-meta">
+                    <span id="modal-popular"></span>
+                </div>
+                <p id="modal-bio"></p>
+                <div id="modal-awards"></div>
             </div>
         </div>
     `;
 
     const carousel = document.querySelector(".carousel");
-    actors.forEach(actor => {
+    actors.forEach((actor, idx) => {
         const actorDiv = document.createElement("div");
         actorDiv.className = "actor";
+        actorDiv.setAttribute("data-idx", idx);
         actorDiv.innerHTML = `
             <img src="${actor.image}" alt="${actor.name}">
             <h3>${actor.name}</h3>
@@ -281,7 +294,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const rightButton = document.querySelector(".right-button");
     let currentIndex = 0;
 
-    // Actor Karussell nach jedem Wechseln updaten
     function updateCarousel() {
         const actorElements = document.querySelectorAll(".actor");
         actorElements.forEach((actor, index) => {
@@ -312,6 +324,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateCarousel();
 
+    // MODAL LOGIK
+    const actorModal = document.getElementById("actor-modal");
+    const modalImage = document.getElementById("modal-image");
+    const modalName = document.getElementById("modal-name");
+    const modalBio = document.getElementById("modal-bio");
+    const modalClose = document.getElementById("modal-close");
+    const modalBirthdate = document.getElementById("modal-birthdate");
+    const modalAge = document.getElementById("modal-age");
+    const modalAwards = document.getElementById("modal-awards");
+    const modalPopular = document.getElementById("modal-popular");
+
+    function showActorModal(actor) {
+        modalImage.src = actor.image;
+        modalImage.alt = actor.name;
+        modalName.textContent = actor.name;
+        modalBio.textContent = actor.bio;
+        modalBirthdate.innerHTML = `<b>Geburtsdatum:</b> ${actor.birthdate}`;
+        modalAge.innerHTML = `<b>Alter:</b> ${actor.age}`;
+        modalPopular.innerHTML = `<b>Bekannt aus:</b> ${actor.popularSeries}`;
+        modalAwards.innerHTML = actor.awards && actor.awards.length
+            ? `<div class="awards-title"><b>Auszeichnungen:</b></div>
+               <ul class="modal-awards-list">${actor.awards.map(a => `<li>${a}</li>`).join('')}</ul>`
+            : "";
+        actorModal.classList.remove("hidden");
+    }
+    function hideActorModal() {
+        actorModal.classList.add("hidden");
+    }
+    modalClose.addEventListener("click", hideActorModal);
+    actorModal.addEventListener("click", function(e) {
+        if (e.target === actorModal) hideActorModal();
+    });
+
+    document.querySelectorAll(".carousel .actor").forEach(actorEl => {
+        actorEl.addEventListener("click", function () {
+            const idx = +actorEl.getAttribute("data-idx");
+            showActorModal(actors[idx]);
+        });
+    });
+
     const allActorsButton = document.getElementById("all-actors-button");
     const carouselSection = document.getElementById("carousel-section");
     const actorsOverview = document.getElementById("actors-overview");
@@ -325,9 +377,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayActors(filteredActors) {
         const actorsGrid = document.querySelector(".actors-grid");
         actorsGrid.innerHTML = ""; 
-        filteredActors.forEach(actor => {
+        filteredActors.forEach((actor, idx) => {
             const actorCard = document.createElement("div");
             actorCard.className = "actor-card";
+            actorCard.setAttribute("data-idx", idx);
             actorCard.innerHTML = `
                 <img src="${actor.image}" alt="${actor.name}">
                 <h3>${actor.name}</h3>
@@ -335,6 +388,12 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
             actorsGrid.appendChild(actorCard);
         });
+        document.querySelectorAll('.actor-card').forEach(card =>
+            card.addEventListener("click", function() {
+                const idx = +card.getAttribute("data-idx");
+                showActorModal(actors[idx]);
+            })
+        );
         applyGsapAnimations();
     }
 
@@ -345,8 +404,8 @@ document.addEventListener("DOMContentLoaded", function () {
         displayActors(filteredActors);
     });
 
-    // GSAP 
     function applyGsapAnimations() {
+        if(typeof gsap === "undefined") return;
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.utils.toArray(".actor-card").forEach((card, index) => {
@@ -368,4 +427,10 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         });
     }
+
+    document.addEventListener("keydown", function(e) {
+        if (!actorModal.classList.contains("hidden") && e.key === "Escape") {
+            hideActorModal();
+        }
+    });
 });

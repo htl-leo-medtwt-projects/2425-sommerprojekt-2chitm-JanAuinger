@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         if (isMatch) {
+            playMatchSound(); 
             card1.classList.add("matched");
             card2.classList.add("matched");
             matchedPairs++;
@@ -74,11 +75,13 @@ document.addEventListener("DOMContentLoaded", function () {
             if (matchedPairs === memoryData.length) {
                 clearInterval(timerInterval);
                 setTimeout(() => {
+                    playWinSound(); 
                     stopTimer();
                     updateUserStatsMemory(); 
                 }, 500);
             }
         } else {
+            playNoMatchSound(); 
             setTimeout(() => {
                 card1.classList.remove("flipped");
                 card2.classList.remove("flipped");
@@ -127,4 +130,20 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("back-to-selection").addEventListener("click", function () {
         window.location.reload();
     });
+
+    function playMatchSound() {
+        const audio = new Audio('../media/correctmatch.mp3'); 
+        audio.play();
+    }
+
+    function playNoMatchSound() {
+        const audio = new Audio('../media/wrongmatch.mp3'); 
+        audio.play();
+    }
+
+    function playWinSound() {
+        const audio = new Audio('../media/correctmatch.mp3'); 
+        audio.play();
+    }
+
 });

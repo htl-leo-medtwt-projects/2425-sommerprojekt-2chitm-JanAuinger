@@ -443,6 +443,21 @@
 .user-icon img:hover {
   transform: scale(1.1);
 }
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0.2rem 0.2rem;
+    height: 44px;
+  }
+  .navbar .nav-button {
+    font-size: 0.93rem;
+    padding: 0.22rem 0.6rem;
+    margin: 0 0.07rem;
+  }
+  .user-icon img {
+    width: 25px; height: 25px;
+  }
+}
 /*SHOWS*/
 
 #shows{
@@ -619,43 +634,58 @@
 .random-facts,
 .random-suggestion {
     text-align: center;
-    margin: 2rem auto;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
+    margin: 2.2rem auto 2.6rem auto;
+    background: rgba(30, 19, 19, 0.29);
+    padding: 1.25rem 1.88rem 1.55rem 1.88rem;
+    border-radius: 17px;
+    box-shadow: 0 4px 16px 0 rgba(165, 36, 36, 0.14), 0 1.5px 2.5px 0 rgba(0,0,0,0.13);
+    max-width: 580px;
+    border: 1.5px solid var(--dark-red);
 }
 
 .random-facts h3,
 .random-suggestion h3 {
-    font-size: 1.8rem;
+    font-size: 1.38rem;
     color: var(--dark-red);
-    margin-bottom: 1rem;
+    font-family: var(--headfont);
+    margin-bottom: 1.07rem;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.09);
 }
 
 .random-facts p,
 .random-suggestion #suggestion-title {
-    font-size: 1.2rem;
-    color: white;
+    font-size: 1.09rem;
+    color: #fff;
+    font-family: var(--lemon);
+    margin: 0.6rem 0 0.55rem 0;
+    padding: 0 0.2rem;
+    letter-spacing: 0.01em;
 }
 
 .random-facts button,
 .random-suggestion button {
-    background-color: var(--dark-red);
+    background: linear-gradient(90deg, var(--dark-red) 70%, #b04c4c 100%);
     border: none;
-    color: white;
-    font-size: 1rem;
-    padding: 0.5rem 1.5rem;
-    border-radius: 5px;
+    color: #fff;
+    font-size: 1.09rem;
+    padding: 0.53rem 1.23rem;
+    border-radius: 7px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-family: var(--lemon);
+    font-weight: 500;
+    margin: 0.7rem auto 0.2rem auto;
+    box-shadow: 0 2px 7px rgba(0,0,0,0.11);
+    letter-spacing: 0.02em;
+    transition: background 0.22s, color 0.18s, transform 0.13s;
 }
 
 .random-facts button:hover,
 .random-suggestion button:hover {
-    background-color: white;
+    background: #fff;
     color: var(--dark-red);
+    transform: scale(1.045);
+    border: 1.5px solid var(--dark-red);
 }
 
 .random-suggestion #suggestion-result {
@@ -663,14 +693,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: rgba(0,0,0,0.08);
+    border-radius: 6px;
+    padding: 0.5rem 0.2rem 0.8rem 0.2rem;
+    box-shadow: 0 1.5px 4px rgba(0,0,0,0.09);
 }
 
 .random-suggestion #suggestion-result img {
-    width: 200px;
+    width: 185px;
     height: auto;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 9px;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 4px 11px rgba(165, 36, 36, 0.12), 0 1.5px 2.5px 0 rgba(0,0,0,0.13);
+    border: 1.5px solid var(--dark-red);
+}
+
+.random-suggestion #suggestion-result.hidden {
+    display: none;
 }
 
 
@@ -1051,6 +1090,81 @@
   .actor-modal-content img { width: 32vw; height: 32vw; min-width: 90px; min-height: 90px;}
 }
 
+@media (max-width: 700px) {
+  .carousel-container {
+    max-width: 98vw;
+    height: 220px;
+    min-width: 0;
+  }
+  .carousel-button {
+    font-size: 1.25rem;
+    padding: 0.2rem 0.65rem;
+    left: 0 !important; right: 0 !important;
+    top: 44%;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    max-width: 42px;
+    max-height: 42px;
+  }
+  .left-button { left: 0.2rem !important; }
+  .right-button { right: 0.2rem !important; }
+
+  .actor, .actor.active, .actor.left, .actor.right {
+    width: 92vw !important;
+    min-width: 150px;
+    max-width: 99vw;
+    height: 130px;
+    left: 0; right: 0; top: 0; bottom: 0;
+    margin: auto;
+  }
+  .actor img {
+    width: 95vw;
+    max-width: 180px;
+    height: 85px;
+    min-height: 60px;
+    border-radius: 9px;
+  }
+  .actor h3 { font-size: 1rem; }
+  .actor p { font-size: 0.83rem; }
+
+  .actors-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.15rem;
+    width: 97vw;
+    margin: 1.1rem auto 2rem auto;
+    max-width: 99vw;
+  }
+  .actor-card {
+    max-width: 96vw;
+    padding: 0.7rem 0.3rem;
+  }
+  .actor-card img {
+    height: 120px;
+    min-height: 60px;
+  }
+  .search-bar {
+    width: 80vw;
+    min-width: 0;
+    max-width: 99vw;
+    font-size: 0.97rem;
+    margin: 1rem auto 1.2rem auto;
+    display: block;
+    margin-left: -70vw;
+  }
+  #actors h1 { font-size: 1.14rem; }
+  #actors h3 { font-size: 0.99rem; }
+  .actor-modal-content {
+    min-width: 75vw !important;
+    max-width: 99vw !important;
+    padding: 1.2rem 0.4rem 1rem 0.4rem;
+  }
+  .actor-modal-content img {
+    width: 24vw; height: 24vw; min-width: 60px; min-height: 60px;
+    max-width: 90px; max-height: 90px;
+  }
+}
 /*GAMES*/
 
 #games{
@@ -1516,9 +1630,16 @@
     margin-top: 8px;
   }
   .logout-button {
-    width: 100%;
+    width: 90%;
     font-size: 1rem;
     padding: 0.7rem 0;
     margin-top: 1rem;
+  }
+  .shop-avatars {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 93vw;
+    max-width: 93vw;
+    margin: 0 auto 0.5rem auto;
   }
 }

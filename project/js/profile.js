@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="nav-button">ACTORS</button>
                 <button class="nav-button">GAMES</button>
                 <div class="user-icon">
-                    <img src="../media/UserIcon.png" alt="User Icon">
+                    <img id="navbarAvatarImg" src="../media/UserIcon.png" alt="User Icon">
                 </div>
             </header>
 
@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 </section>
 
                 <section id="avatar-shop-section">
-                    <h2>Avatar-Shop</h2>
                     <div id="avatar-shop" class="shop-avatars"></div>
                 </section>
             </div>
@@ -53,6 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const quizCount = document.getElementById("quiz-count");
     const memoryCount = document.getElementById("memory-count");
     const pointsCount = document.getElementById("points-count");
+    const profileAvatarImg = document.getElementById("profileAvatarImg");
+    const navbarAvatarImg = document.getElementById("navbarAvatarImg");
+    const shopDiv = document.getElementById("avatar-shop");
 
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
@@ -85,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
         memoryCount.textContent = userData.stats.memoryWins;
         pointsCount.textContent = userData.stats.points;
     }
+
     updateProfileStatsFromUserData();
 
     const avatars = [
@@ -153,29 +156,38 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     ];
 
-    const profileAvatarImg = document.getElementById("profileAvatarImg");
-    profileAvatarImg.src = avatars.find(a => a.id === userData.currentAvatar).img;
+    function updateAvatars() {
+        const currentAvatarObj = avatars.find(a => a.id === userData.currentAvatar) || avatars[0];
+        profileAvatarImg.src = currentAvatarObj.img;
+        navbarAvatarImg.src = currentAvatarObj.img;
+    }
 
-    const shopDiv = document.getElementById("avatar-shop");
-    shopDiv.innerHTML = avatars.map(a => `
-        <div class="shop-avatar" style="display:inline-block; margin:1rem; background:#222; padding:1rem; border-radius:10px; text-align:center; min-width:120px;">
-            <img src="${a.img}" alt="${a.name}" style="width:70px;height:70px;border-radius:50%;border:2px solid #444;">
-            <div style="margin-top:0.4rem;">${a.name}</div>
-            <div style="font-size:0.9rem;margin-bottom:0.3rem;">${a.price} Punkte</div>
-            <button
-                ${userData.ownedAvatars.includes(a.id) ? 'disabled' : ''}
-                ${userData.stats.points < a.price || userData.stats.points < a.minPoints ? 'disabled' : ''}
-                onclick="buyAvatar('${a.id}')"
-                style="margin:0.1rem 0.2rem; ${userData.ownedAvatars.includes(a.id) ? 'background:#444;cursor:not-allowed;' : ''}"
-            >${userData.ownedAvatars.includes(a.id) ? 'Besitzt' : 'Kaufen'}</button>
-            <button
-                ${userData.ownedAvatars.includes(a.id) && userData.currentAvatar !== a.id ? '' : 'disabled'}
-                onclick="selectAvatar('${a.id}')"
-                style="margin:0.1rem 0.2rem;"
-            >Auswählen</button>
-        </div>
-    `).join("");
+    function renderAvatarShop() {
+        shopDiv.innerHTML = avatars.map(a => `
+            <div class="shop-avatar" style="display:inline-block; margin:1rem; background:#222; padding:1rem; border-radius:10px; text-align:center; min-width:120px;">
+                <img src="${a.img}" alt="${a.name}" style="width:70px;height:70px;border-radius:50%;border:2px solid #444;">
+                <div style="margin-top:0.4rem;">${a.name}</div>
+                <div style="font-size:0.9rem;margin-bottom:0.3rem;">${a.price} Punkte</div>
+                <button
+                    ${userData.ownedAvatars.includes(a.id) ? 'disabled' : ''}
+                    ${userData.stats.points < a.price || userData.stats.points < a.minPoints ? 'disabled' : ''}
+                    onclick="buyAvatar('${a.id}')"
+                    style="margin:0.1rem 0.2rem; ${userData.ownedAvatars.includes(a.id) ? 'background:#444;cursor:not-allowed;' : ''}"
+                >${userData.ownedAvatars.includes(a.id) ? 'Besitzt' : 'Kaufen'}</button>
+                <button
+                    ${userData.ownedAvatars.includes(a.id) && userData.currentAvatar !== a.id ? '' : 'disabled'}
+                    onclick="selectAvatar('${a.id}')"
+                    style="margin:0.1rem 0.2rem;"
+                >Auswählen</button>
+            </div>
+        `).join("");
+    }
 
+    // Initiales Rendering
+    updateAvatars();
+    renderAvatarShop();
+
+    // Avatar-Kauf
     window.buyAvatar = function (avatarId) {
         const avatar = avatars.find(a => a.id === avatarId);
         if (!avatar) return;
@@ -185,19 +197,22 @@ document.addEventListener("DOMContentLoaded", function () {
             userData.ownedAvatars.push(avatarId);
             localStorage.setItem(currentUser, JSON.stringify(userData));
             updateProfileStatsFromUserData();
-            window.location.reload();
+            renderAvatarShop();
         } else {
             alert("Nicht genug Punkte!");
         }
     };
 
+    // Avatar auswählen
     window.selectAvatar = function (avatarId) {
         if (!userData.ownedAvatars.includes(avatarId)) return;
         userData.currentAvatar = avatarId;
         localStorage.setItem(currentUser, JSON.stringify(userData));
-        window.location.reload();
+        updateAvatars();
+        renderAvatarShop();
     };
 
+    // Logout
     document.getElementById("logoutBtn").addEventListener("click", () => {
         localStorage.removeItem("currentUser");
         window.location.href = "../pages/startscreen.html";

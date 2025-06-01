@@ -2,14 +2,96 @@ document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("shows");
 
     const sliderShows = [
-        { title: "Breaking Bad", image: "../media/shows/breakingbad.png" },
-        { title: "The Sopranos", image: "../media/shows/sopranos.png" },
-        { title: "Dexter", image: "../media/shows/dexter.png" },
-        { title: "Sherlock", image: "../media/shows/sherlock.png" },
-        { title: "True Detective", image: "../media/shows/truedetective.png" },
-        { title: "Fargo", image: "../media/shows/fargo.png" },
-        { title: "Mindhunter", image: "../media/shows/mindhunter.png" },
-        { title: "Narcos", image: "../media/shows/narcos.png" }
+        { 
+            title: "Breaking Bad", 
+            image: "../media/shows/breakingbad.png",
+            year: 2008,
+            genres: ["Crime", "Drama", "Thriller"],
+            description: "Ein Chemielehrer wird zum Drogenbaron – Spannung pur in Albuquerque.",
+            awards: [
+                "16 Emmy Awards, darunter 'Outstanding Drama Series'",
+                "2 Golden Globe Awards",
+                "Wurde von der Kritik als eine der besten Serien aller Zeiten gefeiert"
+            ]
+        },
+        { 
+            title: "The Sopranos", 
+            image: "../media/shows/sopranos.png",
+            year: 1999,
+            genres: ["Crime", "Drama"],
+            description: "Die Mafia, Familie und Therapie – das Leben von Tony Soprano.",
+            awards: [
+                "21 Emmy Awards",
+                "5 Golden Globes",
+                "Häufig als die Serie bezeichnet, die das goldene Zeitalter des Fernsehens einläutete"
+            ]
+        },
+        { 
+            title: "Dexter", 
+            image: "../media/shows/dexter.png",
+            year: 2006,
+            genres: ["Crime", "Drama", "Mystery"],
+            description: "Tagsüber Forensiker, nachts Serienkiller – Dexter Morgan jagt die Bösen.",
+            awards: [
+                "2 Golden Globe Awards",
+                "4 Emmy Awards"
+            ]
+        },
+        { 
+            title: "Sherlock", 
+            image: "../media/shows/sherlock.png",
+            year: 2010,
+            genres: ["Crime", "Drama", "Mystery"],
+            description: "Sherlock Holmes und Dr. Watson lösen in London moderne Fälle.",
+            awards: [
+                "9 Emmy Awards",
+                "BAFTA TV Award für Beste Dramaserie"
+            ]
+        },
+        { 
+            title: "True Detective", 
+            image: "../media/shows/truedetective.png",
+            year: 2014,
+            genres: ["Crime", "Drama", "Mystery"],
+            description: "Komplexe Ermittler und dunkle Geheimnisse – jede Staffel ein neues Verbrechen.",
+            awards: [
+                "5 Emmy Awards",
+                "Critics' Choice Television Award"
+            ]
+        },
+        { 
+            title: "Fargo", 
+            image: "../media/shows/fargo.png",
+            year: 2014,
+            genres: ["Crime", "Drama", "Thriller"],
+            description: "Inspiriert vom Kultfilm – schwarzer Humor und skurrile Verbrechen in Minnesota.",
+            awards: [
+                "3 Golden Globe Awards",
+                "6 Emmy Awards"
+            ]
+        },
+        { 
+            title: "Mindhunter", 
+            image: "../media/shows/mindhunter.png",
+            year: 2017,
+            genres: ["Crime", "Drama", "Thriller"],
+            description: "FBI-Agenten interviewen Serienmörder und revolutionieren das Profiling.",
+            awards: [
+                "Satellite Award for Best Television Series",
+                "AFI Award"
+            ]
+        },
+        { 
+            title: "Narcos", 
+            image: "../media/shows/narcos.png",
+            year: 2015,
+            genres: ["Crime", "Drama", "Biography"],
+            description: "Der Aufstieg und Fall von Pablo Escobar und dem Medellín-Kartell.",
+            awards: [
+                "Emmy-Nominierung für Beste Dramaserie",
+                "2 Golden Globe-Nominierungen"
+            ]
+        }
     ];
 
     const dailyShows = [
@@ -55,8 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3>Empfehlungen für dich</h3>
             <div class="slider-container">
                 <button class="slider-button left-button">&#10094;</button>
-                <div class="slider">
-                </div>
+                <div class="slider"></div>
                 <button class="slider-button right-button">&#10095;</button>
             </div>
         </div>
@@ -93,6 +174,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h2 id="suggestion-title"></h2>
             </div>
         </div>
+
+        <!-- Show-Detail-Modal (nutzt dieselben CSS-Klassen wie das Actor-Modal) -->
+        <div id="show-modal" class="actor-modal hidden">
+            <div class="actor-modal-content">
+                <button id="modal-close" aria-label="Schließen">&times;</button>
+                <img id="modal-img" src="" alt="" />
+                <div id="modal-name"></div>
+                <div class="modal-meta" id="modal-meta"></div>
+                <div class="show-modal-genres" id="modal-genres"></div>
+                <div id="modal-bio"></div>
+                <div class="awards-title" id="modal-awards-title" style="display:none;">Auszeichnungen</div>
+                <ul class="modal-awards-list" id="modal-awards-list"></ul>
+            </div>
+        </div>
     `;
 
     // Slider
@@ -102,6 +197,8 @@ document.addEventListener("DOMContentLoaded", function () {
         showDiv.className = "show";
         showDiv.style.backgroundImage = `url(${show.image})`;
         showDiv.innerHTML = `<p>${show.title}</p>`;
+        showDiv.style.cursor = "pointer";
+        showDiv.onclick = () => openShowModal(show);
         slider.appendChild(showDiv);
     });
 
@@ -214,4 +311,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
         suggestionResult.classList.remove("hidden");
     });
+
+    function openShowModal(show) {
+        document.getElementById("modal-img").src = show.image;
+        document.getElementById("modal-img").alt = show.title;
+        document.getElementById("modal-name").textContent = show.title;
+        document.getElementById("modal-meta").textContent = show.year || "";
+        const genresDiv = document.getElementById("modal-genres");
+        genresDiv.innerHTML = "";
+        (show.genres || []).forEach(g => {
+            const span = document.createElement("span");
+            span.className = "show-modal-genre";
+            span.textContent = g;
+            genresDiv.appendChild(span);
+        });
+        document.getElementById("modal-bio").textContent = show.description || "";
+        const awardsTitle = document.getElementById("modal-awards-title");
+        const awardsList = document.getElementById("modal-awards-list");
+        if (show.awards && show.awards.length > 0) {
+            awardsTitle.style.display = "";
+            awardsList.innerHTML = show.awards.map(a => `<li>${a}</li>`).join("");
+        } else {
+            awardsTitle.style.display = "none";
+            awardsList.innerHTML = "";
+        }
+        document.getElementById("show-modal").classList.remove("hidden");
+    }
+    document.getElementById("modal-close").onclick = function() {
+        document.getElementById("show-modal").classList.add("hidden");
+    };
+    document.getElementById("show-modal").onclick = function(e) {
+        if (e.target === this) document.getElementById("show-modal").classList.add("hidden");
+    };
 });

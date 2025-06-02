@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("actors");
+    
+    // Hole den aktuellen Benutzer für die Bewertungen
+    const currentUser = localStorage.getItem("currentUser") || "gast";
+    
+    // Ratings aus localStorage abrufen oder ein leeres Objekt erstellen
+    let userRatings = JSON.parse(localStorage.getItem(currentUser + "_ratings")) || {
+        shows: {},
+        actors: {}
+    };
 
     const actors = [
         {
@@ -272,6 +281,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     <span id="modal-popular"></span>
                 </div>
                 <p id="modal-bio"></p>
+                
+                <!-- Sternebewertung -->
+                <div class="rating-container">
+                  <div class="stars-text">Deine Bewertung:</div>
+                  <div class="stars-container">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                  </div>
+                </div>
+                
                 <div id="modal-awards"></div>
             </div>
         </div>
@@ -324,6 +346,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateCarousel();
 
+    // Rating-Funktionen
+    function setupRatingSystem(actor) {
+        const stars = document.querySelectorAll('#actor-modal .star');
+        
+        const currentRating = userRatings.actors[actor.name];
+            
+        if (currentRating) {
+            highlightStars(stars, currentRating);
+        } else {
+            stars.forEach(star => star.classList.remove('active'));
+        }
+        
+        stars.forEach(star => {
+            star.onclick = function() {
+                const rating = parseInt(this.dataset.value);
+                
+                userRatings.actors[actor.name] = rating;
+                
+                localStorage.setItem(currentUser + "_ratings", JSON.stringify(userRatings));
+                
+                highlightStars(stars, rating);
+            };
+        });
+    }
+
+    function highlightStars(stars, rating) {
+        stars.forEach(star => {
+            star.classList.remove('active');
+            if (parseInt(star.dataset.value) <= rating) {
+                star.classList.add('active');
+            }
+        });
+    }
+
     // MODAL LOGIK
     const actorModal = document.getElementById("actor-modal");
     const modalImage = document.getElementById("modal-image");
@@ -347,12 +403,18 @@ document.addEventListener("DOMContentLoaded", function () {
             ? `<div class="awards-title"><b>Auszeichnungen:</b></div>
                <ul class="modal-awards-list">${actor.awards.map(a => `<li>${a}</li>`).join('')}</ul>`
             : "";
+        
+        setupRatingSystem(actor);
+        
         actorModal.classList.remove("hidden");
     }
+    
     function hideActorModal() {
         actorModal.classList.add("hidden");
     }
+    
     modalClose.addEventListener("click", hideActorModal);
+    
     actorModal.addEventListener("click", function(e) {
         if (e.target === actorModal) hideActorModal();
     });
@@ -380,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function () {
         filteredActors.forEach((actor, idx) => {
             const actorCard = document.createElement("div");
             actorCard.className = "actor-card";
-            actorCard.setAttribute("data-idx", idx);
+            actorCard.setAttribute("data-idx", actors.findIndex(a => a.name === actor.name));
             actorCard.innerHTML = `
                 <img src="${actor.image}" alt="${actor.name}">
                 <h3>${actor.name}</h3>

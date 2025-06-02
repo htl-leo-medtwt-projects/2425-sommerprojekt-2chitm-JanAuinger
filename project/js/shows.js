@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("shows");
+    
+    // Hole den aktuellen Benutzer für die Bewertungen
+    const currentUser = localStorage.getItem("currentUser") || "gast";
+    
+    // Ratings aus localStorage abrufen oder ein leeres Objekt erstellen
+    let userRatings = JSON.parse(localStorage.getItem(currentUser + "_ratings")) || {
+        shows: {},
+        actors: {}
+    };
 
     const sliderShows = [
         { 
@@ -184,6 +193,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="modal-meta" id="modal-meta"></div>
                 <div class="show-modal-genres" id="modal-genres"></div>
                 <div id="modal-bio"></div>
+                
+                <!-- Sternebewertung -->
+                <div class="rating-container">
+                  <div class="stars-text">Deine Bewertung:</div>
+                  <div class="stars-container">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                  </div>
+                </div>
+                
                 <div class="awards-title" id="modal-awards-title" style="display:none;">Auszeichnungen</div>
                 <ul class="modal-awards-list" id="modal-awards-list"></ul>
             </div>
@@ -312,6 +334,40 @@ document.addEventListener("DOMContentLoaded", function () {
         suggestionResult.classList.remove("hidden");
     });
 
+    // Rating-Funktionen
+    function setupRatingSystem(show) {
+        const stars = document.querySelectorAll('#show-modal .star');
+        
+        const currentRating = userRatings.shows[show.title];
+            
+        if (currentRating) {
+            highlightStars(stars, currentRating);
+        } else {
+            stars.forEach(star => star.classList.remove('active'));
+        }
+        
+        stars.forEach(star => {
+            star.onclick = function() {
+                const rating = parseInt(this.dataset.value);
+                
+                userRatings.shows[show.title] = rating;
+                
+                localStorage.setItem(currentUser + "_ratings", JSON.stringify(userRatings));
+                
+                highlightStars(stars, rating);
+            };
+        });
+    }
+
+    function highlightStars(stars, rating) {
+        stars.forEach(star => {
+            star.classList.remove('active');
+            if (parseInt(star.dataset.value) <= rating) {
+                star.classList.add('active');
+            }
+        });
+    }
+
     function openShowModal(show) {
         document.getElementById("modal-img").src = show.image;
         document.getElementById("modal-img").alt = show.title;
@@ -335,11 +391,16 @@ document.addEventListener("DOMContentLoaded", function () {
             awardsTitle.style.display = "none";
             awardsList.innerHTML = "";
         }
+        
+        setupRatingSystem(show);
+        
         document.getElementById("show-modal").classList.remove("hidden");
     }
+    
     document.getElementById("modal-close").onclick = function() {
         document.getElementById("show-modal").classList.add("hidden");
     };
+    
     document.getElementById("show-modal").onclick = function(e) {
         if (e.target === this) document.getElementById("show-modal").classList.add("hidden");
     };

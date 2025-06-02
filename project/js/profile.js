@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.getElementById("profile");
+    const currentUser = localStorage.getItem("currentUser") || "gast";
+    
+    let userRatings = JSON.parse(localStorage.getItem(currentUser + "_ratings")) || {
+        shows: {},
+        actors: {}
+    };
 
     body.innerHTML = `
         <div class="profile-container">
@@ -37,12 +43,39 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </section>
 
-                <section class="profile-actions">
-                    <button id="logoutBtn" class="logout-button">Logout</button>
+                <!-- Bewertungsübersicht -->
+                <section class="ratings-section">
+                    <div class="section-toggle" id="ratings-toggle">
+                        <h3>Deine Bewertungen</h3>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="section-content hidden" id="ratings-content">
+                        <div class="ratings-tabs">
+                            <button class="tab-btn active" data-tab="shows">Shows</button>
+                            <button class="tab-btn" data-tab="actors">Schauspieler</button>
+                        </div>
+                        <div class="ratings-tab-content" id="shows-ratings">
+                            <!-- Shows-Bewertungen werden hier geladen -->
+                        </div>
+                        <div class="ratings-tab-content hidden" id="actors-ratings">
+                            <!-- Actors-Bewertungen werden hier geladen -->
+                        </div>
+                    </div>
                 </section>
 
-                <section id="avatar-shop-section">
-                    <div id="avatar-shop" class="shop-avatars"></div>
+                <!-- Avatarshop -->
+                <section class="shop-section">
+                    <div class="section-toggle" id="shop-toggle">
+                        <h3>Avatar Shop</h3>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="section-content hidden" id="avatar-shop-section">
+                        <div id="avatar-shop" class="shop-avatars"></div>
+                    </div>
+                </section>
+
+                <section class="profile-actions">
+                    <button id="logoutBtn" class="logout-button">Logout</button>
                 </section>
             </div>
         </div>
@@ -56,8 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const navbarAvatarImg = document.getElementById("navbarAvatarImg");
     const shopDiv = document.getElementById("avatar-shop");
 
-    const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
+    if (!currentUser || currentUser === "gast") {
         alert("Du bist nicht eingeloggt.");
         window.location.href = "../pages/startscreen.html";
         return;
@@ -164,26 +196,97 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderAvatarShop() {
         shopDiv.innerHTML = avatars.map(a => `
-            <div class="shop-avatar" style="display:inline-block; margin:1rem; background:#222; padding:1rem; border-radius:10px; text-align:center; min-width:120px;">
-                <img src="${a.img}" alt="${a.name}" style="width:70px;height:70px;border-radius:50%;border:2px solid #444;">
-                <div style="margin-top:0.4rem;">${a.name}</div>
-                <div style="font-size:0.9rem;margin-bottom:0.3rem;">${a.price} Punkte</div>
+            <div class="shop-avatar">
+                <img src="${a.img}" alt="${a.name}">
+                <div>${a.name}</div>
+                <div>${a.price} Punkte</div>
                 <button
                     ${userData.ownedAvatars.includes(a.id) ? 'disabled' : ''}
                     ${userData.stats.points < a.price || userData.stats.points < a.minPoints ? 'disabled' : ''}
                     onclick="buyAvatar('${a.id}')"
-                    style="margin:0.1rem 0.2rem; ${userData.ownedAvatars.includes(a.id) ? 'background:#444;cursor:not-allowed;' : ''}"
                 >${userData.ownedAvatars.includes(a.id) ? 'Besitzt' : 'Kaufen'}</button>
                 <button
                     ${userData.ownedAvatars.includes(a.id) && userData.currentAvatar !== a.id ? '' : 'disabled'}
                     onclick="selectAvatar('${a.id}')"
-                    style="margin:0.1rem 0.2rem;"
                 >Auswählen</button>
             </div>
         `).join("");
     }
 
-    // Initiales Rendering
+    // Bewertungen anzeigen
+    function renderRatings() {
+        const showsRatings = document.getElementById("shows-ratings");
+        const showsEntries = Object.entries(userRatings.shows);
+        
+        if (showsEntries.length === 0) {
+            showsRatings.innerHTML = "<p class='no-ratings'>Du hast noch keine Shows bewertet.</p>";
+        } else {
+            showsRatings.innerHTML = showsEntries.map(([title, rating]) => `
+                <div class="rating-item">
+                    <div class="rating-title">${title}</div>
+                    <div class="rating-stars">${renderStars(rating)}</div>
+                </div>
+            `).join("");
+        }
+        
+        // Actors-Bewertungen anzeigen
+        const actorsRatings = document.getElementById("actors-ratings");
+        const actorsEntries = Object.entries(userRatings.actors);
+        
+        if (actorsEntries.length === 0) {
+            actorsRatings.innerHTML = "<p class='no-ratings'>Du hast noch keine Schauspieler bewertet.</p>";
+        } else {
+            actorsRatings.innerHTML = actorsEntries.map(([name, rating]) => `
+                <div class="rating-item">
+                    <div class="rating-title">${name}</div>
+                    <div class="rating-stars">${renderStars(rating)}</div>
+                </div>
+            `).join("");
+        }
+    }
+
+    // Hilfsfunktion zum Rendern der Sterne als HTML
+    function renderStars(rating) {
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+            stars += `<span class="profile-star ${i <= rating ? 'active' : ''}" data-value="${i}">★</span>`;
+        }
+        return stars;
+    }
+
+    // Auf/Zuklappen der Abschnitte
+    document.getElementById("ratings-toggle").addEventListener("click", function() {
+        const content = document.getElementById("ratings-content");
+        const icon = this.querySelector(".toggle-icon");
+        content.classList.toggle("hidden");
+        icon.textContent = content.classList.contains("hidden") ? "▼" : "▲";
+        
+        if (!content.classList.contains("hidden")) {
+            renderRatings();
+        }
+    });
+
+    document.getElementById("shop-toggle").addEventListener("click", function() {
+        const content = document.getElementById("avatar-shop-section");
+        const icon = this.querySelector(".toggle-icon");
+        content.classList.toggle("hidden");
+        icon.textContent = content.classList.contains("hidden") ? "▼" : "▲";
+    });
+
+    // Tabwechsel für Bewertungen
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    tabButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            tabButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+            
+            const tabName = this.getAttribute("data-tab");
+            document.getElementById("shows-ratings").classList.add("hidden");
+            document.getElementById("actors-ratings").classList.add("hidden");
+            document.getElementById(tabName + "-ratings").classList.remove("hidden");
+        });
+    });
+
     updateAvatars();
     renderAvatarShop();
 
